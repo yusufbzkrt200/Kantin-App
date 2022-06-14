@@ -1,0 +1,32 @@
+﻿@using Kantin.DATA.Entity
+@model Category
+@{
+    ViewBag.Title = "Ekle";
+}
+
+
+<script>
+    $("#11").addClass("active");
+</script>
+<br />
+<h2>Kategori Ekle</h2>
+
+
+<form action="@Url.Action("Ekle","Category")" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Name, new { @class = "form-control", autocomplete = "off", placeholder = "Kategori İsmini Giriniz" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-lg">Kategori Ekle</button>
+
+</form>

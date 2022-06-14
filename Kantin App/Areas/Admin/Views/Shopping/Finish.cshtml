@@ -1,0 +1,32 @@
+﻿@using Kantin.DATA.Entity
+@model Fatura
+@{
+    ViewBag.Title = "Finish";
+}
+
+
+
+<script>$("#2").addClass("active");</script>
+<br />
+<h2>Ödemeniz Nakitse Lütfen Fişini Ekleyiniz</h2>
+<br />
+
+<form action="@Url.Action("Finish","Shopping")" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="form-row">
+            
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Adi" class="col-md-3">Dosya Seç :</label>
+                    <div class="col-md-9">
+                        <input class="" type="file" name="dosya"  />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-lg">Ürün Ekle</button>
+</form>

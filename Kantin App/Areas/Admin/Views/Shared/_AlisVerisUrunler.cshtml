@@ -1,0 +1,45 @@
+﻿@using Kantin.DATA.Entity
+<table class="table table-striped">
+    <h2>Alışveriş Sepeti</h2>
+    <tr>
+        <th>ID</th>
+        <th>Ürün İsmi</th>
+        <th>Fiyat</th>
+        <th>Adet</th>
+        <th></th>
+    </tr>
+    @if (MyCart.Cart != null)
+    {
+        foreach (var Cart in MyCart.Cart)
+        {
+            <tr>
+                <td>@Cart.Urun.Id</td>
+                <td>@Cart.Urun.Name</td>
+                <td>@Cart.Urun.Price ₺</td>
+                <td>@Cart.Adet</td>
+                @*<td><a href="/Admin/Shopping/DeleteFromCart?id=@Cart.Urun.Id" class="btn btn-danger">Sil</a></td>*@
+                <td>
+                    <button class="btn btn-danger" onclick="SepettenSil('@Cart.Urun.Id')">Sil</button>
+                </td>
+
+
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td>
+                <b>Ürün Yok!</b>
+            </td>
+
+        </tr>
+    }
+</table>
+<div class="col-md-4">
+    <p>Toplam : @MyCart.Toplam₺</p>
+    <a href="/Admin/Shopping/Finish" class="btn btn-success" style="margin-top: -78px; margin-left: 309px; ">Bitir</a>
+    @*<a href="/Admin/Shopping/ClearCart" class="btn btn-danger" style="margin-top: -128px; margin-left: 234px;">Sıfırla</a>*@
+    @*<button class="btn btn-success" onclick="Finish()" style="margin-top: -78px; margin-left: 309px; ">Bitir</button>*@
+    <button class="btn btn-danger" onclick="Clear()" style="margin-top: -128px; margin-left: 234px;">Sıfırla</button>
+</div>

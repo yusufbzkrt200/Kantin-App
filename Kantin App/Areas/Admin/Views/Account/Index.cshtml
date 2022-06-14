@@ -1,0 +1,43 @@
+﻿@using Kantin.DATA.Entity
+@model IEnumerable<User>
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<h2>Kullanıcılar</h2>
+
+
+<script>
+    $("#3").addClass("active");
+</script>
+
+<div class="row">
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>E-mail</th>
+            <th></th>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Username</td>
+                @*<td>@user.Email</td>*@
+                <td>
+                    @*<a class="btn btn-danger" href="javascript:;" onclick="Delete(@user.Id)">Sil</a>*@
+                    <a href="/Admin/Account/delete?id=@user.Id"><div class="btn btn-danger">Sil</div></a>
+
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+

@@ -1,0 +1,197 @@
+﻿@using Kantin.DATA.Entity
+@using Kantin.DATA.DataAccess
+@model IEnumerable<Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    $("#9").addClass("active");
+</script>
+<br />
+@*<h2>Ürünler</h2>
+    <h2>Alışveriş Sepeti</h2>*@
+
+@*<style>
+        .body {
+            background-color: #4f5962;
+        }
+    </style>*@
+
+<div class="content">
+    <div class="row">
+
+        <div class="col" id="getProducts">
+
+        </div>
+
+
+        <div class="col-md-4" >
+            <select class="form-select form-select-sm mb-3" style="max-width: 370px; border: 2px solid #007bff; color: white; background-color: #454d55 ;  " aria-label="Default select example" onchange="CategoryUrun()" id="categories" name="CategoryId">
+
+                <option value="0">Kategori Seçiniz</option>
+
+
+                @foreach (var item in CategoryDataAccess.CategoryList())
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+
+            </select>
+
+            <div class="input-group input-group-sm mb-3" style="max-width:370px">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Arama</span>
+                </div>
+                <input type="text" id="ebrar" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onkeyup="CategoryUrun()">
+            </div>
+
+            <div id="partial" style="max-width:370px">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    function partialGet() {
+        $.ajax({
+            url: "/Admin/Shopping/GetCart",
+            method: "Post",
+
+            success: function (result) {
+
+                if (result) {
+                    $("#partial").html(result);
+                }
+            }
+        })
+    }
+
+    function CategoryUrun() {
+        var a = document.getElementById("categories").value;
+        var b = document.getElementById("ebrar").value;
+
+        $.ajax({
+            url: "/Admin/Shopping/GetProducts",
+            data: {
+                "id": a,
+                "search": b
+
+
+            },
+
+            success: function (result) {
+
+                if (result) {
+                    $("#getProducts").html(result);
+                }
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        CategoryUrun();
+        partialGet();
+    });
+
+    function SepetEkle(id) {
+        $.ajax({
+            url: "/Admin/Shopping/UrunEkle",
+            data: {
+                "id": id
+            },
+            method: "Post",
+
+            success: function (result) {
+
+                if (result) {
+                    //setTimeout(reloadPage, 500);
+                    partialGet();
+                }
+            }
+        })
+    }
+
+    function SepettenSil(id) {
+        $.ajax({
+            url: "/Admin/Shopping/DeleteFromCart",
+            data: {
+                "id": id
+            },
+            method: "Post",
+
+            success: function (result) {
+
+                if (result) {
+                    //setTimeout(reloadPage, 500);
+                    partialGet();
+
+                }
+            }
+        })
+    }
+
+    function Finish() {
+        $.ajax({
+            url: "/Admin/Shopping/Finish",
+            //method: "",
+
+            success: function (result) {
+
+                if (result) {
+                    //setTimeout(reloadPage, 500);
+                    //location.reload()
+                }
+            }
+        })
+    }
+
+    function Clear() {
+        $.ajax({
+            url: "/Admin/Shopping/ClearCart",
+            method: "Post",
+
+            success: function (result) {
+
+                if (result) {
+                    //setTimeout(reloadPage, 500);
+                    partialGet();
+
+                }
+            }
+        })
+    }
+
+    function IadeOlustur(id) {
+        $.ajax({
+            url: "/Admin/Shopping/UrunIade",
+            data: {
+                "id": id
+            },
+            method: "Post",
+
+            success: function (result) {
+
+                if (result) {
+                    alert("İade Oluşturuldu!")
+                }
+            }
+        })
+    }
+
+    function onay(id) {
+        var idd = id;
+        let text = "İade Oluşturmak istiyor musunuz?";
+        if (confirm(text) == true) {
+            text = "İade Oluşturuldu!";
+            IadeOlustur(idd);
+        } else {
+            text = "İptal Edildi!";
+        }
+    }
+
+</script>

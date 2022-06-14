@@ -1,0 +1,88 @@
+﻿@using Kantin.DATA.Entity
+@model Product
+@{
+    ViewBag.Title = "UrunEkle";
+
+}
+
+<script>$("#2").addClass("active");</script>
+<br />
+<h2>Ürün Ekle</h2>
+<br />
+
+@if (ViewBag.Hata != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Hata 
+    </div>
+}
+
+<form action="@Url.Action("UrunEkle","Product")" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="KategoriAciklama" class="col-md-3">İsim</label>
+
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Name, new { @class = "form-control", autocomplete = "off", placeholder = "Ürün İsmini Giriniz" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="KategoriAciklama" class="col-md-3">Fiyat</label>
+
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Price, new { @class = "form-control", autocomplete = "off", placeholder = "Fiyat" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="KategoriAciklama" class="col-md-3">Stok</label>
+
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Stock, new { @class = "form-control", autocomplete = "off", placeholder = "Stok" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="KategoriAciklama" class="col-md-3">Barkod</label>
+
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Barcode, new { @class = "form-control", autocomplete = "off", placeholder = "Barkod Giriniz" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="cars">Bir Kategori Seçiniz :</label>
+                    <select id="categories" name="CategoryId">
+                        @foreach (var item in ViewBag.Categories)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                        
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Adi" class="col-md-3">Dosya Seç :</label>
+                    <div class="col-md-9">
+                        <input class="" type="file" name="dosya" required />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-lg">Ürün Ekle</button>
+</form>

@@ -1,0 +1,85 @@
+﻿@using Kantin.DATA.Entity
+@model Product
+@{
+    ViewBag.Title = "UrunGuncelle";
+}
+
+<script>
+    $("#1").addClass("active");
+</script>
+
+<br />
+<h2>Ürünn Guncelle</h2>
+<br />
+
+<form action="@Url.Action("UrunGuncelle","Product")" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <input type="hidden" name="DosyaAdi" value="@Model.Name" />
+    <input type="hidden" name="eklemetarihi" value="@Model.Price" />
+    <input type="hidden" name="aktitif" value="@Model.Barcode" />
+    <div class="form-group">
+        <div class="form-row">
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Adi" class="col-md-3">Ürün İsmi İsim :</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Name, new { @class = "form-control", autocomplete = "off", placeholder = "Ürün İsmi Yazınız" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="KategoriAciklama" class="col-md-3">Fiyat :</label>
+
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Price, new { @class = "form-control", autocomplete = "off", placeholder = "Fiyat Yazınız" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="KategoriAciklama" class="col-md-3">Stok :</label>
+
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Stock, new { @class = "form-control", autocomplete = "off", placeholder = "Stok Yazınız" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Adi" class="col-md-3">Barkod :</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(a => a.Barcode, new { @class = "form-control", autocomplete = "off", placeholder = "Barkod Numarası Yazınız" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Adi" class="col-md-3">Dosya Seç :</label>
+                    <div class="col-md-9">
+                        <input class="" type="file" name="dosya"  />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Adi" class="col-md-3">Kayıtlı Resim :</label>
+                    <div class="col-md-9">
+                        <img src="~/Areas/Admin/Products/@Model.UrunLink" style="max-width:50px" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-success">Güncelle</button>
+
+    </div>
+
+</form>

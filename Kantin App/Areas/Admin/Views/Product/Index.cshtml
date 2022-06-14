@@ -1,0 +1,83 @@
+﻿@using Kantin.DATA.Entity
+@using Kantin.DATA.DataAccess
+@model IEnumerable<Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    $("#1").addClass("active");
+</script>
+
+@if (ViewBag.Hata != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Hata
+    </div>
+}
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Ürünler</h2>
+    </div>
+
+    <div class="col-md-4">
+        <select class="form-select form-select-sm mb-3" style="max-width: 370px; border: 2px solid #007bff; color: white; background-color: #454d55 ;  " aria-label="Default select example" onchange="CategoryUrun()" id="categories" name="CategoryId">
+
+            <option value="0">Kategori Seçiniz</option>
+
+
+            @foreach (var item in CategoryDataAccess.CategoryList())
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+
+        </select>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="input-group input-group-sm mb-3" style="max-width:370px;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm" style="color: white;  background-color: #454d55;">Arama</span>
+            </div>
+            <input type="text" id="categoryUrun" style="color: white; background-color: #454d55; border: 2px solid #007bff;"
+                   class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onkeyup="CategoryUrun()">
+        </div>
+    </div>
+</div>
+<br />
+
+
+<div class="col" id="getProducts">
+
+</div>
+
+<script>
+    function CategoryUrun() {
+        var a = document.getElementById("categories").value;
+        var b = document.getElementById("categoryUrun").value;
+
+        $.ajax({
+            url: "/Admin/Product/GetProducts",
+            data: {
+                "id": a,
+                "search": b
+
+
+            },
+
+            success: function (result) {
+
+                if (result) {
+                    $("#getProducts").html(result);
+                }
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        CategoryUrun();
+    });
+</script>
